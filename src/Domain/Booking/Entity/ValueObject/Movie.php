@@ -3,7 +3,6 @@
 namespace App\Domain\Booking\Entity\ValueObject;
 
 use DateInterval;
-use DomainException;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Embeddable]
@@ -15,12 +14,10 @@ class Movie
     #[ORM\Column(type: 'dateinterval')]
     private DateInterval $duration;
 
-    public function __construct(string $title, string $duration)
+    public function __construct(string $title, DateInterval $duration)
     {
         $this->title = $title;
-
-        self::acceptShouldBeConvertStringToTime($duration);
-        $this->duration = DateInterval::createFromDateString($duration);
+        $this->duration = $duration;
     }
 
     public function getTitle(): string
@@ -31,12 +28,5 @@ class Movie
     public function getDuration(): DateInterval
     {
         return $this->duration;
-    }
-
-    private static function acceptShouldBeConvertStringToTime(string $string): void
-    {
-        if (!strtotime($string)) {
-            throw new DomainException('Can\'t convert string to time');
-        }
     }
 }
