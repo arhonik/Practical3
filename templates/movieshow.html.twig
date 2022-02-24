@@ -16,11 +16,21 @@
                     <div>{{ movieShow.getMovieShowInfo.getMovieTitle }}</div>
                     <div>{{ movieShow.getMovieShowInfo.getScheduleStartAt|date("H:i") }} - {{ movieShow.getMovieShowInfo.getScheduleEndAt|date("H:i") }}</div>
                     <div><span>{{ movieShow.getMovieShowInfo.getScheduleStartAt|date("j F") }}</span><span>{{ movieShow.getMovieShowInfo.getMovieDuration|date("%h:%i") }}</span></div>
-                    <form>
-                        <div><input type="text" name="name" placeholder="Имя"></div>
-                        <div><input type="text" name="phone" placeholder="Телефон"></div>
-                        <div><button type="submit">Забронировать</button></div>
-                    </form>
+                    {{ form_start(movieShow.getBookingForm) }}
+                    <div class="my-custom-class-for-errors">
+                        {{ form_errors(movieShow.getBookingForm) }}
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            {{ form_row(movieShow.getBookingForm.name) }}
+                        </div>
+                        <div class="col" id="some-custom-id">
+                            {{ form_row(movieShow.getBookingForm.phone) }}
+                        </div>
+                        {{ form_row(movieShow.getBookingForm.movieShow) }}
+                    </div>
+                    {{ form_end(movieShow.getBookingForm) }}
                 </div>
             </div>
         {% endfor %}
