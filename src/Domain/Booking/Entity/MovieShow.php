@@ -12,13 +12,25 @@ use App\Domain\Booking\Entity\ValueObject\Schedule;
 use DomainException;
 use Iterator;
 use Symfony\Component\Uid\Uuid;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity]
 class MovieShow
 {
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid')]
     private Uuid $id;
+
+    #[ORM\Embedded(class: Movie::class)]
     private Movie $movie;
+
+    #[ORM\Embedded(class: Schedule::class)]
     private Schedule $schedule;
+
+    #[ORM\Embedded(class: Hall::class)]
     private Hall $hall;
+
+    #[ORM\OneToMany(targetEntity: Ticket::class, mappedBy: 'movieShowId')]
     private TicketsCollection $ticketsCollection;
 
     public function __construct(
