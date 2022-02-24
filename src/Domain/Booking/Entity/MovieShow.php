@@ -29,6 +29,8 @@ class MovieShow
 
     #[ORM\Embedded(class: Hall::class)]
     private Hall $hall;
+
+    #[ORM\OneToMany(targetEntity: Ticket::class, mappedBy: 'movieShowId')]
     private TicketsCollection $ticketsCollection;
 
     public function __construct(
