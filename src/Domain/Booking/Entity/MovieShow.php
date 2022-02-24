@@ -99,4 +99,18 @@ class MovieShow
     {
         return $this->ticketsCollection->getIterator();
     }
+
+    public function getBookingForm(): mixed
+    {
+        return $this->bookingForm;
+    }
+
+    public function setBookingForm(mixed $bookingForm): void
+    {
+        $this->bookingForm = $bookingForm;
+    }
+    public function getId(): Uuid
+    {
+        return $this->id;
+    }
 }
