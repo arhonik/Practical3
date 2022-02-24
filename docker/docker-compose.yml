@@ -1,0 +1,61 @@
+version: '3.0'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+    volumes:
+      - ./../public:/var/www/public
+      - ./nginx/sites:/etc/nginx/conf.d
+    ports:
+      - 80:80
+    depends_on:
+      - php-fpm
+    networks:
+      - internal
+
+  php-fpm:
+    build:
+      context: ./php-fpm
+    volumes:
+      - ./../:/var/www/public
+    ports:
+      - 9000
+    depends_on:
+      - mysql
+    networks:
+      - internal
+
+  mysql:
+    image: mysql:5.7
+    build:
+      context: ./mysql
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3306:3306
+    environment:
+      - "MYSQL_DATABASE=docker_dev"
+      - "MYSQL_USER=docker_dev"
+      - "MYSQL_PASSWORD=testpass"
+      - "MYSQL_ROOT_PASSWORD=testpass"
+    volumes:
+      - dbdata:/var/lib/mysql:rw
+    networks:
+      - internal
+
+volumes:
+  php-fpm:
+    driver: "local"
+  nginx:
+    driver: "local"
+  mysql:
+    driver: "local"
+  dbdata:
+
+networks:
+  internal:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.201.224/27
