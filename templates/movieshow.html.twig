@@ -8,48 +8,22 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col">
-            <div class="movieshow text-center">
-                <div>свободных мест</div>
-                <div>26</div>
-                <div>Веном 2</div>
-                <div>19:45 - 21:10</div>
-                <div><span>10 октября</span><span>1ч 25м</span></div>
-                <form>
-                    <div><input type="text" name="name" placeholder="Имя"></div>
-                    <div><input type="text" name="phone" placeholder="Телефон"></div>
-                    <div><button type="submit">Забронировать</button></div>
-                </form>
+        {% for movieShow in allMovieShow.getIterator %}
+            <div class="col">
+                <div class="movieshow text-center">
+                    <div>свободных мест</div>
+                    <div>{{ movieShow.getMovieShowInfo.getFreePlace }}</div>
+                    <div>{{ movieShow.getMovieShowInfo.getMovieTitle }}</div>
+                    <div>{{ movieShow.getMovieShowInfo.getScheduleStartAt|date("H:i") }} - {{ movieShow.getMovieShowInfo.getScheduleEndAt|date("H:i") }}</div>
+                    <div><span>{{ movieShow.getMovieShowInfo.getScheduleStartAt|date("j F") }}</span><span>{{ movieShow.getMovieShowInfo.getMovieDuration|date("%h:%i") }}</span></div>
+                    <form>
+                        <div><input type="text" name="name" placeholder="Имя"></div>
+                        <div><input type="text" name="phone" placeholder="Телефон"></div>
+                        <div><button type="submit">Забронировать</button></div>
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="movieshow text-center">
-                <div>свободных мест</div>
-                <div>26</div>
-                <div>Веном 2</div>
-                <div>19:45 - 21:10</div>
-                <div><span>10 октября</span><span>1ч 25м</span></div>
-                <form>
-                    <div><input type="text" name="name" placeholder="Имя"></div>
-                    <div><input type="text" name="phone" placeholder="Телефон"></div>
-                    <div><button type="submit">Забронировать</button></div>
-                </form>
-            </div>
-        </div>
-        <div class="col">
-            <div class="movieshow text-center">
-                <div>свободных мест</div>
-                <div>26</div>
-                <div>Веном 2</div>
-                <div>19:45 - 21:10</div>
-                <div><span>10 октября</span><span>1ч 25м</span></div>
-                <form>
-                    <div><input type="text" name="name" placeholder="Имя"></div>
-                    <div><input type="text" name="phone" placeholder="Телефон"></div>
-                    <div><button type="submit">Забронировать</button></div>
-                </form>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 </body>
