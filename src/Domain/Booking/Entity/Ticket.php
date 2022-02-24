@@ -4,13 +4,26 @@ namespace App\Domain\Booking\Entity;
 
 use App\Domain\Booking\Entity\ValueObject\Customer;
 use DateTimeInterface;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
+#[ORM\Entity]
 class Ticket
 {
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid')]
     private Uuid $id;
+
+    #[ORM\ManyToOne(targetEntity: MovieShow::class)]
+    private Uuid $movieShowId;
+
+    #[ORM\Embedded(class: Customer::class)]
     private Customer $customer;
+
+    #[ORM\Column(type: 'string')]
     private string $movie;
+
+    #[ORM\Column(type: 'datetime')]
     private DateTimeInterface $startTime;
 
     public function __construct(
