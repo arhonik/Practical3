@@ -19,7 +19,7 @@ class MovieShowController extends \Symfony\Bundle\FrameworkBundle\Controller\Abs
             $bookingForm = $this->createForm(BookingType::class, $bookingDto)->createView();
             $item->setBookingForm($bookingForm);
         }
-        
+
         return $this->render("movieshow.html.twig", ["allMovieShow" => $allMovieShow]);
     }
 }
