@@ -33,6 +33,8 @@ class MovieShow
     #[ORM\OneToMany(targetEntity: Ticket::class, mappedBy: 'movieShowId')]
     private TicketsCollection $ticketsCollection;
 
+    private mixed $bookingForm;
+
     public function __construct(
         Uuid $id,
         Movie $movie,
