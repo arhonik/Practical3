@@ -15,7 +15,8 @@ class Ticket
     private Uuid $id;
 
     #[ORM\ManyToOne(targetEntity: MovieShow::class)]
-    private Uuid $movieShowId;
+    #[ORM\Column(type: 'uuid')]
+    private Uuid $movieShowIdId;
 
     #[ORM\Embedded(class: Customer::class)]
     private Customer $customer;
