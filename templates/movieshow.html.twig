@@ -8,29 +8,29 @@
 <body>
 <div class="container">
     <div class="row">
-        {% for movieShow in allMovieShow.getIterator %}
+        {% for m in allMovieShow.getIterator %}
             <div class="col">
                 <div class="movieshow text-center">
                     <div>свободных мест</div>
-                    <div>{{ movieShow.getMovieShowInfo.getFreePlace }}</div>
-                    <div>{{ movieShow.getMovieShowInfo.getMovieTitle }}</div>
-                    <div>{{ movieShow.getMovieShowInfo.getScheduleStartAt|date("H:i") }} - {{ movieShow.getMovieShowInfo.getScheduleEndAt|date("H:i") }}</div>
-                    <div><span>{{ movieShow.getMovieShowInfo.getScheduleStartAt|date("j F") }}</span><span>{{ movieShow.getMovieShowInfo.getMovieDuration|date("%h:%i") }}</span></div>
-                    {{ form_start(movieShow.getBookingForm) }}
+                    <div>{{ m.getMovieShowInfo.getFreePlace }}</div>
+                    <div>{{ m.getMovieShowInfo.getMovieTitle }}</div>
+                    <div>{{ m.getMovieShowInfo.getScheduleStartAt|date("H:i") }} - {{ m.getMovieShowInfo.getScheduleEndAt|date("H:i") }}</div>
+                    <div><span>{{ m.getMovieShowInfo.getScheduleStartAt|date("j F") }}</span><span>{{ m.getMovieShowInfo.getMovieDuration|date("%h:%i") }}</span></div>
+                    {{ form_start(m.getBookingForm) }}
                     <div class="my-custom-class-for-errors">
-                        {{ form_errors(movieShow.getBookingForm) }}
+                        {{ form_errors(m.getBookingForm) }}
                     </div>
 
                     <div class="row">
                         <div class="col">
-                            {{ form_row(movieShow.getBookingForm.name) }}
+                            {{ form_row(m.getBookingForm.name) }}
                         </div>
                         <div class="col" id="some-custom-id">
-                            {{ form_row(movieShow.getBookingForm.phone) }}
+                            {{ form_row(m.getBookingForm.phone) }}
                         </div>
-                        {{ form_row(movieShow.getBookingForm.movieShow) }}
+                        {{ form_row(m.getBookingForm.movieShow) }}
                     </div>
-                    {{ form_end(movieShow.getBookingForm) }}
+                    {{ form_end(m.getBookingForm) }}
                 </div>
             </div>
         {% endfor %}
