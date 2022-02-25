@@ -30,7 +30,7 @@ class MovieShow
     #[ORM\Embedded(class: Hall::class)]
     private Hall $hall;
 
-    #[ORM\OneToMany(targetEntity: Ticket::class, mappedBy: 'movieShowId')]
+    #[ORM\OneToMany(targetEntity: Ticket::class, mappedBy: 'movieShow')]
     private TicketsCollection $ticketsCollection;
 
     private mixed $bookingForm;

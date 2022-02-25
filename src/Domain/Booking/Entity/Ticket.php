@@ -16,7 +16,7 @@ class Ticket
 
     #[ORM\ManyToOne(targetEntity: MovieShow::class)]
     #[ORM\Column(type: 'uuid')]
-    private Uuid $movieShowIdId;
+    private Uuid $movieShow;
 
     #[ORM\Embedded(class: Customer::class)]
     private Customer $customer;
@@ -35,7 +35,7 @@ class Ticket
         DateTimeInterface $startTime
     ) {
         $this->id = $id;
-        $this->movieShowIdId = $movieShowId;
+        $this->movieShow = $movieShowId;
         $this->customer = $customer;
         $this->movie = $movie;
         $this->startTime = $startTime;
