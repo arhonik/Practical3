@@ -29,11 +29,13 @@ class Ticket
 
     public function __construct(
         Uuid $id,
+        Uuid $movieShowId,
         Customer $customer,
         string $movie,
         DateTimeInterface $startTime
     ) {
         $this->id = $id;
+        $this->movieShowIdId = $movieShowId;
         $this->customer = $customer;
         $this->movie = $movie;
         $this->startTime = $startTime;
