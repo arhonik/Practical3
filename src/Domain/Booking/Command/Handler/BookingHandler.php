@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Domain\Booking\Handler;
+namespace App\Domain\Booking\Command\Handler;
 
+use App\Domain\Booking\Command\BookingCommand;
 use App\Domain\Booking\Entity\TransferObject\BookingDto;
 use App\Domain\Booking\Repository\MovieShowRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Uid\UuidV4;
 
 class BookingHandler implements \Symfony\Component\Messenger\Handler\MessageHandlerInterface
 {
@@ -18,12 +21,20 @@ class BookingHandler implements \Symfony\Component\Messenger\Handler\MessageHand
     }
 
     public function __invoke(
-        BookingDto $bookingDto
+        BookingCommand $bookingCommand
     ) {
-        $movieShow = $this->movieShowRepository->findByUuid($bookingDto->movieShow);
-        $ticket = $movieShow->bookPlace($bookingDto);
+        $movieShowUuid = Uuid::fromString($bookingCommand->movieShow);
+        $movieShow = $this->movieShowRepository->findByUuid($movieShowUuid);
+
+        $bookingDto = new BookingDto(
+            $bookingCommand->name,
+            $bookingCommand->phone,
+            $bookingCommand->movieShow
+        );
+        $movieShow->bookPlace($bookingDto);
+
         $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($ticket);
+        $entityManager->persist($movieShow);
         $entityManager->flush();
     }
 }

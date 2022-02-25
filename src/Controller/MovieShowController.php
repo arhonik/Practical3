@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Domain\Booking\Entity\TransferObject\BookingDto;
+use App\Domain\Booking\Command\BookingCommand;
 use App\Domain\Booking\Form\BookingType;
 use App\Domain\Booking\Repository\MovieShowRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,9 +19,9 @@ class MovieShowController extends \Symfony\Bundle\FrameworkBundle\Controller\Abs
     ): \Symfony\Component\HttpFoundation\Response {
         $allMovieShow = $movieShowRepository->findAll();
         foreach ($allMovieShow->getIterator() as $index => $item) {
-            $bookingDto = new BookingDto();
-            $bookingDto->movieShow = $item->getId();
-            $bookingForm = $this->createForm(BookingType::class, $bookingDto);
+            $bookingCommand = new BookingCommand();
+            $bookingCommand->movieShow = $item->getId();
+            $bookingForm = $this->createForm(BookingType::class, $bookingCommand);
             $bookingFormView = $bookingForm->createView();
             $item->setBookingForm($bookingFormView);
             $bookingForm->handleRequest($request);
