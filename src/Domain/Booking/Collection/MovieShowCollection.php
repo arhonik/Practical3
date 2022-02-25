@@ -3,36 +3,20 @@
 namespace App\Domain\Booking\Collection;
 
 use App\Domain\Booking\Entity\MovieShow;
-use Countable;
-use Iterator;
+use Doctrine\Common\Collections\ArrayCollection;
 
-class MovieShowCollection implements Countable
+class MovieShowCollection extends ArrayCollection
 {
-    private array $movieShow = [];
-
-    public function get(): array
+    public function add(mixed $ticket): void
     {
-        return $this->movieShow;
+        self::assertShouldBeMovieShow($ticket);
+        parent::add($ticket);
     }
 
-    public function add(MovieShow $movieShow)
+    public static function assertShouldBeMovieShow(mixed $movieShow): void
     {
-        $this->movieShow[] = $movieShow;
+        if (!$movieShow instanceof MovieShow) {
+            throw new \DomainException('Invalid object');
+        }
     }
-
-    public function count(): int
-    {
-        return count($this->movieShow);
-    }
-
-    public function getIterator(): Iterator
-    {
-        return new MovieShowIterator($this);
-    }
-
-    public function getReverseIterator(): Iterator
-    {
-        return new MovieShowIterator($this, true);
-    }
-
 }
