@@ -5,7 +5,7 @@ namespace App\Domain\Booking\Entity;
 use App\Domain\Booking\Entity\ValueObject\Customer;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Uid\Uuid as Uuid;
 
 #[ORM\Entity]
 class Ticket
@@ -14,9 +14,9 @@ class Ticket
     #[ORM\Column(type: 'uuid')]
     private Uuid $id;
 
-    #[ORM\ManyToOne(targetEntity: MovieShow::class)]
-    #[ORM\Column(type: 'uuid')]
-    private Uuid $movieShow;
+    #[ORM\ManyToOne(targetEntity: MovieShow::class, inversedBy: 'ticketsCollection')]
+    #[ORM\JoinColumn(name: 'movie_show_id', referencedColumnName: 'id')]
+    private MovieShow $movieShow;
 
     #[ORM\Embedded(class: Customer::class)]
     private Customer $customer;
@@ -29,13 +29,13 @@ class Ticket
 
     public function __construct(
         Uuid $id,
-        Uuid $movieShowId,
+        MovieShow $movieShow,
         Customer $customer,
         string $movie,
         DateTimeInterface $startTime
     ) {
         $this->id = $id;
-        $this->movieShow = $movieShowId;
+        $this->movieShow = $movieShow;
         $this->customer = $customer;
         $this->movie = $movie;
         $this->startTime = $startTime;
@@ -44,6 +44,11 @@ class Ticket
     public function getId(): Uuid
     {
         return $this->id;
+    }
+
+    public function getMovieShow(): MovieShow
+    {
+        return $this->movieShow;
     }
 
     public function getCustomerName(): string

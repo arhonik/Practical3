@@ -9,6 +9,7 @@ use App\Domain\Booking\Entity\ValueObject\Movie;
 use App\Domain\Booking\Entity\ValueObject\Hall;
 use App\Domain\Booking\Entity\ValueObject\MovieShowInfo;
 use App\Domain\Booking\Entity\ValueObject\Schedule;
+use Doctrine\Common\Collections\Collection;
 use DomainException;
 use Iterator;
 use Symfony\Component\Uid\Uuid;
@@ -30,8 +31,8 @@ class MovieShow
     #[ORM\Embedded(class: Hall::class)]
     private Hall $hall;
 
-    #[ORM\OneToMany(targetEntity: Ticket::class, mappedBy: 'movieShow')]
-    private TicketsCollection $ticketsCollection;
+    #[ORM\OneToMany(targetEntity: Ticket::class, mappedBy: 'movieShow', cascade: ['persist'])]
+    private Collection $ticketsCollection;
 
     private mixed $bookingForm;
 
@@ -48,12 +49,12 @@ class MovieShow
         $this->ticketsCollection = new TicketsCollection();
     }
 
-    public function bookPlace(BookingDto $client): Ticket
+    public function bookPlace(BookingDto $client)
     {
         self::assertCanBeAddTicket($this->getTicketsCollection(), $this->hall->getNumberOfPlaces());
         $ticket = new Ticket(
             Uuid::v4(),
-            $this->getId(),
+            $this,
             new Customer(
                 $client->name,
                 $client->phone,
@@ -62,18 +63,16 @@ class MovieShow
             $this->schedule->getStartAt(),
         );
         $this->ticketsCollection->add($ticket);
-
-        return $ticket;
     }
 
-    private static function assertCanBeAddTicket(TicketsCollection $ticketsCollection, int $numberOfPlaces): void
+    private static function assertCanBeAddTicket(Collection $ticketsCollection, int $numberOfPlaces): void
     {
         if (!self::checkIfFreePlaces($ticketsCollection, $numberOfPlaces)) {
             throw new DomainException('No free places');
         }
     }
 
-    private static function checkIfFreePlaces(TicketsCollection $ticketsCollection, int $numberOfPlaces): bool
+    private static function checkIfFreePlaces(Collection $ticketsCollection, int $numberOfPlaces): bool
     {
         $freePlaces = $numberOfPlaces - $ticketsCollection->count();
         return $freePlaces > 0;
@@ -93,7 +92,7 @@ class MovieShow
         return $this->hall->getNumberOfPlaces() - $this->ticketsCollection->count();
     }
 
-    private function getTicketsCollection(): TicketsCollection
+    private function getTicketsCollection(): Collection
     {
         return $this->ticketsCollection;
     }
