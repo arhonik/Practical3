@@ -3,7 +3,7 @@
 namespace App\Domain\Booking\Entity;
 
 use App\Domain\Booking\Collection\TicketsCollection;
-use App\Domain\Booking\Entity\TransferObject\CustomerDto;
+use App\Domain\Booking\Entity\TransferObject\BookingDto;
 use App\Domain\Booking\Entity\ValueObject\Customer;
 use App\Domain\Booking\Entity\ValueObject\Movie;
 use App\Domain\Booking\Entity\ValueObject\Hall;
@@ -48,19 +48,22 @@ class MovieShow
         $this->ticketsCollection = new TicketsCollection();
     }
 
-    public function bookPlace(CustomerDto $client): void
+    public function bookPlace(BookingDto $client): Ticket
     {
         self::assertCanBeAddTicket($this->getTicketsCollection(), $this->hall->getNumberOfPlaces());
-
-        $this->ticketsCollection->add(new Ticket(
+        $ticket = new Ticket(
             Uuid::v4(),
+            $this->getId(),
             new Customer(
                 $client->name,
                 $client->phone,
             ),
             $this->movie->getTitle(),
             $this->schedule->getStartAt(),
-        ));
+        );
+        $this->ticketsCollection->add($ticket);
+
+        return $ticket;
     }
 
     private static function assertCanBeAddTicket(TicketsCollection $ticketsCollection, int $numberOfPlaces): void

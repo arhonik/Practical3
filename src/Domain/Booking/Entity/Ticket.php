@@ -15,7 +15,8 @@ class Ticket
     private Uuid $id;
 
     #[ORM\ManyToOne(targetEntity: MovieShow::class)]
-    private Uuid $movieShowId;
+    #[ORM\Column(type: 'uuid')]
+    private Uuid $movieShowIdId;
 
     #[ORM\Embedded(class: Customer::class)]
     private Customer $customer;
@@ -28,11 +29,13 @@ class Ticket
 
     public function __construct(
         Uuid $id,
+        Uuid $movieShowId,
         Customer $customer,
         string $movie,
         DateTimeInterface $startTime
     ) {
         $this->id = $id;
+        $this->movieShowIdId = $movieShowId;
         $this->customer = $customer;
         $this->movie = $movie;
         $this->startTime = $startTime;
