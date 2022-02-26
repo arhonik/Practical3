@@ -14,21 +14,18 @@ class MovieShowRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, MovieShow::class);
     }
+
     public function findAll(): MovieShowCollection
     {
         $entityManager = $this->getEntityManager();
-        $queryMovieShow = $entityManager
-            ->createQuery(
-                "SELECT 
-                    ms
-                FROM 
-                    App\Domain\Booking\Entity\MovieShow ms"
-            );
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $queryBuilder
+            ->select("ms")
+            ->from("App\Domain\Booking\Entity\MovieShow", "ms");
+        $queryMovieShow = $queryBuilder->getQuery();
+        $movieShow = $queryMovieShow->getResult();
 
-        $arrayMovieShow = $queryMovieShow->getResult();
-        $moVieShowCollection = new MovieShowCollection($arrayMovieShow);
-
-        return $moVieShowCollection;
+        return new MovieShowCollection($movieShow);
     }
 
     public function findByUuid(UuidV4 $id): MovieShow
@@ -41,10 +38,8 @@ class MovieShowRepository extends ServiceEntityRepository
             ->where("ms.id = ?1")
             ->setParameter(1, $id->toBinary());
 
-        $movieShow = $queryBuilder->getQuery();
-        $result = $movieShow->getSingleResult();
-
-        return $result;
+        $queryMovieShow = $queryBuilder->getQuery();
+        return $queryMovieShow->getSingleResult();
     }
 
 
