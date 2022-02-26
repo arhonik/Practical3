@@ -12,6 +12,7 @@ use App\Domain\Booking\Entity\ValueObject\Schedule;
 use Doctrine\Common\Collections\Collection;
 use DomainException;
 use Iterator;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,7 +35,7 @@ class MovieShow
     #[ORM\OneToMany(targetEntity: Ticket::class, mappedBy: 'movieShow', cascade: ['persist'])]
     private Collection $ticketsCollection;
 
-    private mixed $bookingForm;
+    private FormView $bookingForm;
 
     public function __construct(
         Uuid $id,
@@ -49,7 +50,7 @@ class MovieShow
         $this->ticketsCollection = new TicketsCollection();
     }
 
-    public function bookPlace(BookingDto $client)
+    public function bookPlace(BookingDto $client): void
     {
         self::assertCanBeAddTicket($this->getTicketsCollection(), $this->hall->getNumberOfPlaces());
         $ticket = new Ticket(
@@ -107,10 +108,11 @@ class MovieShow
         return $this->bookingForm;
     }
 
-    public function setBookingForm(mixed $bookingForm): void
+    public function setBookingForm(FormView $bookingForm): void
     {
         $this->bookingForm = $bookingForm;
     }
+
     public function getId(): Uuid
     {
         return $this->id;
