@@ -103,7 +103,7 @@ class MovieShow
         return $this->ticketsCollection->getIterator();
     }
 
-    public function getBookingForm(): mixed
+    public function getBookingForm(): FormView
     {
         return $this->bookingForm;
     }
