@@ -6,7 +6,7 @@ use App\Domain\Booking\Collection\MovieShowCollection;
 use App\Domain\Booking\Entity\MovieShow;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Uid\UuidV4;
+use Symfony\Component\Uid\Uuid;
 
 class MovieShowRepository extends ServiceEntityRepository
 {
@@ -28,7 +28,7 @@ class MovieShowRepository extends ServiceEntityRepository
         return new MovieShowCollection($movieShow);
     }
 
-    public function findByUuid(UuidV4 $id): MovieShow
+    public function findByUuid(Uuid $id): MovieShow
     {
         $entityManager = $this->getEntityManager();
         $queryBuilder = $entityManager->createQueryBuilder();

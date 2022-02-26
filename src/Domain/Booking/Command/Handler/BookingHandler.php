@@ -6,9 +6,10 @@ use App\Domain\Booking\Command\BookingCommand;
 use App\Domain\Booking\Entity\TransferObject\BookingDto;
 use App\Domain\Booking\Repository\MovieShowRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Uid\Uuid;
 
-class BookingHandler implements \Symfony\Component\Messenger\Handler\MessageHandlerInterface
+class BookingHandler implements MessageHandlerInterface
 {
     private MovieShowRepository $movieShowRepository;
     private ManagerRegistry $doctrine;
