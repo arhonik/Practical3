@@ -3,36 +3,26 @@
 namespace App\Domain\Booking\Collection;
 
 use App\Domain\Booking\Entity\Ticket;
-use Countable;
-use Iterator;
+use Doctrine\Common\Collections\ArrayCollection;
+use DomainException;
 
-class TicketsCollection implements Countable
+class TicketsCollection extends ArrayCollection
 {
-    private array $tickets = [];
-
-    public function get(): array
+    public function add(mixed $ticket): void
     {
-        return $this->tickets;
+        self::assertShouldBeMovieShow($ticket);
+        parent::add($ticket);
     }
 
-    public function add(Ticket $ticket)
+    public static function assertShouldBeMovieShow(mixed $ticket): void
     {
-        $this->tickets[] = $ticket;
+        if (!$ticket instanceof Ticket) {
+            throw new DomainException('Invalid object');
+        }
     }
 
     public function count(): int
     {
-        return count($this->tickets);
+        return parent::count();
     }
-
-    public function getIterator(): Iterator
-    {
-        return new TicketsIterator($this);
-    }
-
-    public function getReverseIterator(): Iterator
-    {
-        return new TicketsIterator($this, true);
-    }
-
 }

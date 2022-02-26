@@ -2,7 +2,7 @@
 
 namespace App\Domain\Booking\Form;
 
-use App\Domain\Booking\Entity\TransferObject\BookingDto;
+use App\Domain\Booking\Command\BookingCommand;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BookingType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add("name", TextType::class)
@@ -22,10 +22,10 @@ class BookingType extends AbstractType
             ->add("save", SubmitType::class, ["label" => "Забронировать"]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            "data_class" => BookingDto::class
+            "data_class" => BookingCommand::class
         ]);
     }
 
