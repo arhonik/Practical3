@@ -5,20 +5,23 @@ namespace App\Domain\Booking\Repository;
 use App\Domain\Booking\Collection\MovieShowCollection;
 use App\Domain\Booking\Entity\MovieShow;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Uid\Uuid;
 
 class MovieShowRepository extends ServiceEntityRepository
 {
+    private EntityManagerInterface $entityManager;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, MovieShow::class);
+        $this->entityManager = $this->getEntityManager();
     }
 
     public function findAll(): MovieShowCollection
     {
-        $entityManager = $this->getEntityManager();
-        $queryBuilder = $entityManager->createQueryBuilder();
+        $queryBuilder = $this->entityManager->createQueryBuilder();
         $queryBuilder
             ->select("ms")
             ->from("App\Domain\Booking\Entity\MovieShow", "ms");
@@ -30,8 +33,7 @@ class MovieShowRepository extends ServiceEntityRepository
 
     public function findByUuid(Uuid $id): MovieShow
     {
-        $entityManager = $this->getEntityManager();
-        $queryBuilder = $entityManager->createQueryBuilder();
+        $queryBuilder = $this->entityManager->createQueryBuilder();
         $queryBuilder
             ->select("ms")
             ->from("App\Domain\Booking\Entity\MovieShow", "ms")
