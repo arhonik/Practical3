@@ -44,7 +44,9 @@ class MovieShowRepository extends ServiceEntityRepository
         return $queryMovieShow->getSingleResult();
     }
 
-
-
-
+    public function save(MovieShow $movieShow): void
+    {
+        $this->entityManager->persist($movieShow);
+        $this->entityManager->flush();
+    }
 }
