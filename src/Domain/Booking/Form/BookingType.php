@@ -18,7 +18,7 @@ class BookingType extends AbstractType
         $builder
             ->add("name", TextType::class)
             ->add("phone", TelType::class)
-            ->add("movieShow", HiddenType::class)
+            ->add("movieShowId", HiddenType::class)
             ->add("save", SubmitType::class, ["label" => "Забронировать"]);
     }
 
