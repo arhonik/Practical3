@@ -32,7 +32,7 @@ class MovieShowController extends AbstractController
             if ($bookingForm->isSubmitted() && $bookingForm->isValid()) {
                 $data = $bookingForm->getData();
 
-                if ($this->isTrueFrom($data, $movieShow)) {
+                if ($this->isCorrectCommand($data, $movieShow)) {
                     $bus->dispatch($data);
                 }
             }
@@ -49,7 +49,7 @@ class MovieShowController extends AbstractController
         return $this->createForm(BookingType::class, $bookingCommand);
     }
 
-    private function isTrueFrom(BookingCommand $command, MovieShow $movieShow): bool
+    private function isCorrectCommand(BookingCommand $command, MovieShow $movieShow): bool
     {
         return $command->movieShow == $movieShow->getId();
     }
