@@ -23,16 +23,16 @@ class MovieShowController extends AbstractController
         MessageBusInterface $bus
     ): Response {
         $allMovieShow = $movieShowRepository->findAll();
-        foreach ($allMovieShow->getIterator() as $item) {
-            $bookingForm = $this->createBookingForm($item->getId());
+        foreach ($allMovieShow as $movieShow) {
+            $bookingForm = $this->createBookingForm($movieShow->getId());
             $bookingFormView = $bookingForm->createView();
-            $item->setBookingForm($bookingFormView);
+            $movieShow->setBookingForm($bookingFormView);
 
             $bookingForm->handleRequest($request);
             if ($bookingForm->isSubmitted() && $bookingForm->isValid()) {
                 $data = $bookingForm->getData();
 
-                if ($this->isTrueFrom($data, $item)) {
+                if ($this->isCorrectCommand($data, $movieShow)) {
                     $bus->dispatch($data);
                 }
             }
@@ -44,13 +44,13 @@ class MovieShowController extends AbstractController
     private function createBookingForm(Uuid $id): FormInterface
     {
         $bookingCommand = new BookingCommand();
-        $bookingCommand->movieShow = $id;
+        $bookingCommand->movieShowId = $id;
         
         return $this->createForm(BookingType::class, $bookingCommand);
     }
 
-    private function isTrueFrom(BookingCommand $command, MovieShow $movieShow): bool
+    private function isCorrectCommand(BookingCommand $command, MovieShow $movieShow): bool
     {
-        return $command->movieShow == $movieShow->getId();
+        return $command->movieShowId == $movieShow->getId();
     }
 }
