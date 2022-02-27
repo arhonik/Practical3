@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Domain\Booking\Entity\ValueObject;
+namespace App\Domain\Booking\Entity\TransferObject;
 
+use App\Domain\Booking\Entity\ValueObject\Movie;
+use App\Domain\Booking\Entity\ValueObject\Schedule;
 use DateInterval;
 use DateTimeInterface;
 
-class MovieShowInfo
+class MovieShowInfoDto
 {
     private Movie $movie;
     private Schedule $schedule;

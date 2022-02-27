@@ -4,10 +4,10 @@ namespace App\Domain\Booking\Entity;
 
 use App\Domain\Booking\Collection\TicketsCollection;
 use App\Domain\Booking\Entity\TransferObject\BookingDto;
+use App\Domain\Booking\Entity\TransferObject\MovieShowInfoDto;
 use App\Domain\Booking\Entity\ValueObject\Customer;
 use App\Domain\Booking\Entity\ValueObject\Movie;
 use App\Domain\Booking\Entity\ValueObject\Hall;
-use App\Domain\Booking\Entity\ValueObject\MovieShowInfo;
 use App\Domain\Booking\Entity\ValueObject\Schedule;
 use Doctrine\Common\Collections\Collection;
 use DomainException;
@@ -78,9 +78,9 @@ class MovieShow
         return $freePlaces > 0;
     }
 
-    public function getMovieShowInfo(): MovieShowInfo
+    public function getMovieShowInfo(): MovieShowInfoDto
     {
-        return new MovieShowInfo(
+        return new MovieShowInfoDto(
             $this->movie,
             $this->schedule,
             $this->getNumberOfAvailablePlacesForBooking(),
