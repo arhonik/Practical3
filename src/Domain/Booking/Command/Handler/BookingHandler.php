@@ -12,12 +12,10 @@ use Symfony\Component\Uid\Uuid;
 class BookingHandler implements MessageHandlerInterface
 {
     private MovieShowRepository $movieShowRepository;
-    private ManagerRegistry $doctrine;
 
-    public function __construct(MovieShowRepository $movieShowRepository, ManagerRegistry $doctrine)
+    public function __construct(MovieShowRepository $movieShowRepository)
     {
         $this->movieShowRepository = $movieShowRepository;
-        $this->doctrine = $doctrine;
     }
 
     public function __invoke(BookingCommand $bookingCommand): void
@@ -31,8 +29,6 @@ class BookingHandler implements MessageHandlerInterface
         );
         $movieShow->bookPlace($bookingDto);
 
-        $entityManager = $this->doctrine->getManager();
-        $entityManager->persist($movieShow);
-        $entityManager->flush();
+        $this->movieShowRepository->save($movieShow);
     }
 }
