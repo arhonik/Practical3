@@ -6,5 +6,5 @@ class BookingCommand
 {
     public string $name;
     public string $phone;
-    public string $movieShow;
+    public string $movieShowId;
 }

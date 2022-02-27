@@ -44,13 +44,13 @@ class MovieShowController extends AbstractController
     private function createBookingForm(Uuid $id): FormInterface
     {
         $bookingCommand = new BookingCommand();
-        $bookingCommand->movieShow = $id;
+        $bookingCommand->movieShowId = $id;
         
         return $this->createForm(BookingType::class, $bookingCommand);
     }
 
     private function isCorrectCommand(BookingCommand $command, MovieShow $movieShow): bool
     {
-        return $command->movieShow == $movieShow->getId();
+        return $command->movieShowId == $movieShow->getId();
     }
 }
