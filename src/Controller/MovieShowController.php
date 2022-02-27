@@ -23,16 +23,16 @@ class MovieShowController extends AbstractController
         MessageBusInterface $bus
     ): Response {
         $allMovieShow = $movieShowRepository->findAll();
-        foreach ($allMovieShow->getIterator() as $item) {
-            $bookingForm = $this->createBookingForm($item->getId());
+        foreach ($allMovieShow as $movieShow) {
+            $bookingForm = $this->createBookingForm($movieShow->getId());
             $bookingFormView = $bookingForm->createView();
-            $item->setBookingForm($bookingFormView);
+            $movieShow->setBookingForm($bookingFormView);
 
             $bookingForm->handleRequest($request);
             if ($bookingForm->isSubmitted() && $bookingForm->isValid()) {
                 $data = $bookingForm->getData();
 
-                if ($this->isTrueFrom($data, $item)) {
+                if ($this->isTrueFrom($data, $movieShow)) {
                     $bus->dispatch($data);
                 }
             }
