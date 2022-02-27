@@ -98,11 +98,6 @@ class MovieShow
         return $this->ticketsCollection;
     }
 
-    public function getTicketsCollectionIterator(): Iterator
-    {
-        return $this->ticketsCollection->getIterator();
-    }
-
     public function getBookingForm(): FormView
     {
         return $this->bookingForm;
