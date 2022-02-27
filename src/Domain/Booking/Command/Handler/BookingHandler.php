@@ -20,16 +20,14 @@ class BookingHandler implements MessageHandlerInterface
         $this->doctrine = $doctrine;
     }
 
-    public function __invoke(
-        BookingCommand $bookingCommand
-    ) {
+    public function __invoke(BookingCommand $bookingCommand): void
+    {
         $movieShowUuid = Uuid::fromString($bookingCommand->movieShow);
         $movieShow = $this->movieShowRepository->findByUuid($movieShowUuid);
 
         $bookingDto = new BookingDto(
             $bookingCommand->name,
             $bookingCommand->phone,
-            $bookingCommand->movieShow
         );
         $movieShow->bookPlace($bookingDto);
 
