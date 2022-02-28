@@ -8,28 +8,17 @@
 <body>
 <div class="container">
     <div class="row">
-        {% for message in app.flashes('notice') %}
-            <div class="flash-notice text-center">
-                {{ message }}
-            </div>
-        {% endfor %}
-        {% for movieShow in allMovieShow.getIterator %}
+        {% for m in allMovieShow.getIterator %}
             <div class="col">
                 <div class="movieshow text-center">
                     <div>свободных мест</div>
-                    <div>{{ movieShow.getMovieShowInfo.getFreePlace }}</div>
-                    <div>{{ movieShow.getMovieShowInfo.getMovieTitle }}</div>
-                    <div>{{ movieShow.getMovieShowInfo.getScheduleStartAt|date("H:i") }} - {{ movieShow.getMovieShowInfo.getScheduleEndAt|date("H:i") }}</div>
-                    <div><span>{{ movieShow.getMovieShowInfo.getScheduleStartAt|date("j F") }}</span><span>{{ movieShow.getMovieShowInfo.getMovieDuration|date("%h:%i") }}</span></div>
-                    {% if movieShow.getMovieShowInfo.getFreePlace > 0 %}
-                    <a href="{{ path('booking', {movieShowId: movieShow.getId}) }}">Забронировать</a>
-                    {% endif %}
+                    <div>{{ m.getMovieShowInfo.getFreePlace }}</div>
+                    <div>{{ m.getMovieShowInfo.getMovieTitle }}</div>
+                    <div>{{ m.getMovieShowInfo.getScheduleStartAt|date("H:i") }} - {{ m.getMovieShowInfo.getScheduleEndAt|date("H:i") }}</div>
+                    <div><span>{{ m.getMovieShowInfo.getScheduleStartAt|date("j F") }}</span><span>{{ m.getMovieShowInfo.getMovieDuration|date("%h:%i") }}</span></div>
+                    <a href="{{ path('booking', {movieShowId: m.getId}) }}">Забронировать</a>
                 </div>
             </div>
-        {% else %}
-        <div class="col">
-            <p>No active movie shows</p>
-        </div>
         {% endfor %}
     </div>
 </div>
