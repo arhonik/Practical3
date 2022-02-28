@@ -8,29 +8,29 @@
 <body>
 <div class="container">
     <div class="row">
-            <div class="col">
-                <div class="movieshow text-left">
-                    <div>свободных мест</div>
-                    <div>{{ movieShow.getMovieShowInfo.getFreePlace }}</div>
-                    <div>{{ movieShow.getMovieShowInfo.getMovieTitle }}</div>
-                    <div>{{ movieShow.getMovieShowInfo.getScheduleStartAt|date("H:i") }} - {{ movieShow.getMovieShowInfo.getScheduleEndAt|date("H:i") }}</div>
-                    <div><span>{{ movieShow.getMovieShowInfo.getScheduleStartAt|date("j F") }}</span><span>{{ movieShow.getMovieShowInfo.getMovieDuration|date("%h:%i") }}</span></div>
-                    {{ form_start(form) }}
-                    <div class="my-custom-class-for-errors">
-                        {{ form_errors(form) }}
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            {{ form_row(form.name) }}
-                            {{ form_row(form.phone) }}
-                        </div>
-                        {{ form_row(form.movieShowId) }}
-                    </div>
-                    {{ form_end(form) }}
+        <div class="col">
+            <div class="movieshow text-left">
+                <div>свободных мест</div>
+                <div>{{ movieShow.getMovieShowInfo.getFreePlace }}</div>
+                <div>{{ movieShow.getMovieShowInfo.getMovieTitle }}</div>
+                <div>{{ movieShow.getMovieShowInfo.getScheduleStartAt|date("H:i") }} - {{ movieShow.getMovieShowInfo.getScheduleEndAt|date("H:i") }}</div>
+                <div><span>{{ movieShow.getMovieShowInfo.getScheduleStartAt|date("j F") }}</span><span>{{ movieShow.getMovieShowInfo.getMovieDuration|date("%h:%i") }}</span></div>
+                {{ form_start(form) }}
+                <div class="my-custom-class-for-errors">
+                    {{ form_errors(form) }}
                 </div>
-                <a href="{{ path('movie-shows') }}">Назад</a>
+
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.phone) }}
+                    </div>
+                    {{ form_row(form.movieShowId) }}
+                </div>
+                {{ form_end(form) }}
             </div>
+            <a href="{{ path('movie-shows') }}">Назад</a>
+        </div>
     </div>
 </div>
 </body>
