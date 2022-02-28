@@ -28,5 +28,4 @@ class BookingType extends AbstractType
             "data_class" => BookingCommand::class
         ]);
     }
-
 }
