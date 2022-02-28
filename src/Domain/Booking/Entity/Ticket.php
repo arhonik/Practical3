@@ -40,34 +40,4 @@ class Ticket
         $this->movie = $movie;
         $this->startTime = $startTime;
     }
-
-    public function getId(): Uuid
-    {
-        return $this->id;
-    }
-
-    public function getMovieShow(): MovieShow
-    {
-        return $this->movieShow;
-    }
-
-    public function getCustomerName(): string
-    {
-        return $this->customer->getName();
-    }
-
-    public function getCustomerPhone(): string
-    {
-        return $this->customer->getPhone();
-    }
-
-    public function getMovie(): string
-    {
-        return $this->movie;
-    }
-
-    public function getStartTime(): DateTimeInterface
-    {
-        return $this->startTime;
-    }
 }
