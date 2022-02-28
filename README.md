@@ -8,4 +8,4 @@
 6. Устанавливаем пакеты composer командой `composer install`
 7. Выполняем миграцию командой  `./bin/console doctrine:migrations:migrate`
 8. Запускаем fixture для заполнения данными `./bin/console doctrine:fixtures:load`
-9. Перейдите на [страницу проекта](http://localhost/)
+9. Перейдите на [страницу проекта](http://localhost/movie-shows)
