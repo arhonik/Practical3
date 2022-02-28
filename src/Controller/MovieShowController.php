@@ -16,7 +16,7 @@ use Symfony\Component\Uid\Uuid;
 class MovieShowController extends AbstractController
 {
     private MovieShowRepository $movieShowRepository;
-    public function __construct(MovieShowRepository $movieShowRepository,)
+    public function __construct(MovieShowRepository $movieShowRepository)
     {
         $this->movieShowRepository = $movieShowRepository;
     }
