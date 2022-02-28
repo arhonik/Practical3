@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Domain\Booking\Command\BookingCommand;
-use App\Domain\Booking\Entity\MovieShow;
 use App\Domain\Booking\Form\BookingType;
 use App\Domain\Booking\Repository\MovieShowRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,19 +38,16 @@ class MovieShowController extends AbstractController
         $movieShow = $this->movieShowRepository->findByUuid($movieShowUuid);
 
         $bookingForm = $this->createBookingForm($movieShow->getId());
-        $bookingFormView = $bookingForm->createView();
 
         $bookingForm->handleRequest($request);
         if ($bookingForm->isSubmitted() && $bookingForm->isValid()) {
             $bus->dispatch($bookingForm->getData());
+            $this->addFlash("notice","Your request has been accepted. The data is being processed.");
 
-            $this->addFlash(
-                "notice",
-                "Ticket create."
-            );
+            return $this->redirectToRoute("movie-shows");
         }
 
-        return $this->render("booking.html.twig", ["movieShow" => $movieShow, "form" => $bookingFormView]);
+        return $this->render("booking.html.twig", ["movieShow" => $movieShow, "form" => $bookingForm->createView()]);
     }
 
     private function createBookingForm(Uuid $id): FormInterface
@@ -60,10 +56,5 @@ class MovieShowController extends AbstractController
         $bookingCommand->movieShowId = $id;
         
         return $this->createForm(BookingType::class, $bookingCommand);
-    }
-
-    private function isCorrectCommand(BookingCommand $command, MovieShow $movieShow): bool
-    {
-        return $command->movieShowId == $movieShow->getId();
     }
 }
