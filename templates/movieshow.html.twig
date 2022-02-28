@@ -22,14 +22,14 @@
                     <div>{{ movieShow.getMovieShowInfo.getScheduleStartAt|date("H:i") }} - {{ movieShow.getMovieShowInfo.getScheduleEndAt|date("H:i") }}</div>
                     <div><span>{{ movieShow.getMovieShowInfo.getScheduleStartAt|date("j F") }}</span><span>{{ movieShow.getMovieShowInfo.getMovieDuration|date("%h:%i") }}</span></div>
                     {% if movieShow.getMovieShowInfo.getFreePlace > 0 %}
-                    <a href="{{ path('booking', {movieShowId: movieShow.getId}) }}">Забронировать</a>
+                        <a href="{{ path('booking', {movieShowId: movieShow.getId}) }}">Забронировать</a>
                     {% endif %}
                 </div>
             </div>
         {% else %}
-        <div class="col">
-            <p>No active movie shows</p>
-        </div>
+            <div class="col">
+                <p>No active movie shows</p>
+            </div>
         {% endfor %}
     </div>
 </div>
