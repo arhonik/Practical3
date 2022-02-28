@@ -7,8 +7,8 @@
 </head>
 <body>
 <div class="container">
-    {% for message in app.flashes('error') %}
-        <div class="flash-error">
+    {% for message in app.flashes('notice') %}
+        <div class="flash-notice">
             {{ message }}
         </div>
     {% endfor %}
@@ -28,6 +28,8 @@
                     <div class="row">
                         <div class="col">
                             {{ form_row(form.name) }}
+                        </div>
+                        <div class="col" id="some-custom-id">
                             {{ form_row(form.phone) }}
                         </div>
                         {{ form_row(form.movieShowId) }}
