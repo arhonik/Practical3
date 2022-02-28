@@ -16,29 +16,42 @@ use Symfony\Component\Uid\Uuid;
 
 class MovieShowController extends AbstractController
 {
-    #[Route(path: '/', name: 'booking')]
-    public function index(
-        MovieShowRepository $movieShowRepository,
+    private MovieShowRepository $movieShowRepository;
+    public function __construct(MovieShowRepository $movieShowRepository,)
+    {
+        $this->movieShowRepository = $movieShowRepository;
+    }
+
+    #[Route(path: '/movie-shows', name: 'movie-shows')]
+    public function movieShow(
+    ): Response {
+        $allMovieShow = $this->movieShowRepository->findAll();
+        return $this->render("movieshow.html.twig", ["allMovieShow" => $allMovieShow]);
+    }
+
+    #[Route(path: '/booking/{movieShowId}', name: 'booking')]
+    public function booking(
+        string $movieShowId,
         Request $request,
         MessageBusInterface $bus
     ): Response {
-        $allMovieShow = $movieShowRepository->findAll();
-        foreach ($allMovieShow as $movieShow) {
-            $bookingForm = $this->createBookingForm($movieShow->getId());
-            $bookingFormView = $bookingForm->createView();
-            $movieShow->setBookingForm($bookingFormView);
+        $movieShowUuid = Uuid::fromString($movieShowId);
+        $movieShow = $this->movieShowRepository->findByUuid($movieShowUuid);
 
-            $bookingForm->handleRequest($request);
-            if ($bookingForm->isSubmitted() && $bookingForm->isValid()) {
-                $data = $bookingForm->getData();
+        $bookingForm = $this->createBookingForm($movieShow->getId());
+        $bookingFormView = $bookingForm->createView();
 
-                if ($this->isCorrectCommand($data, $movieShow)) {
-                    $bus->dispatch($data);
-                }
-            }
+        $bookingForm->handleRequest($request);
+        if ($bookingForm->isSubmitted() && $bookingForm->isValid()) {
+            $bus->dispatch($bookingForm->getData());
+
+            $this->addFlash(
+                "notice",
+                "Ticket create."
+            );
         }
 
-        return $this->render("movieshow.html.twig", ["allMovieShow" => $allMovieShow]);
+        return $this->render("booking.html.twig", ["movieShow" => $movieShow, "form" => $bookingFormView]);
     }
 
     private function createBookingForm(Uuid $id): FormInterface
