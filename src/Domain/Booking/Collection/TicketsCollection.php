@@ -20,9 +20,4 @@ class TicketsCollection extends ArrayCollection
             throw new DomainException('Invalid object');
         }
     }
-
-    public function count(): int
-    {
-        return parent::count();
-    }
 }
