@@ -22,8 +22,8 @@ class MovieShowController extends AbstractController
     }
 
     #[Route(path: '/movie-shows', name: 'movie-shows')]
-    public function movieShow(
-    ): Response {
+    public function movieShow(): Response
+    {
         $allMovieShow = $this->movieShowRepository->findAll();
         return $this->render("movieshow.html.twig", ["allMovieShow" => $allMovieShow]);
     }
@@ -34,9 +34,7 @@ class MovieShowController extends AbstractController
         Request $request,
         MessageBusInterface $bus
     ): Response {
-        $movieShowUuid = Uuid::fromString($movieShowId);
-        $movieShow = $this->movieShowRepository->findByUuid($movieShowUuid);
-
+        $movieShow = $this->movieShowRepository->findByUuid(Uuid::fromString($movieShowId));
         $bookingForm = $this->createBookingForm($movieShow->getId());
 
         $bookingForm->handleRequest($request);
