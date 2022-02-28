@@ -16,21 +16,7 @@
                     <div>{{ m.getMovieShowInfo.getMovieTitle }}</div>
                     <div>{{ m.getMovieShowInfo.getScheduleStartAt|date("H:i") }} - {{ m.getMovieShowInfo.getScheduleEndAt|date("H:i") }}</div>
                     <div><span>{{ m.getMovieShowInfo.getScheduleStartAt|date("j F") }}</span><span>{{ m.getMovieShowInfo.getMovieDuration|date("%h:%i") }}</span></div>
-                    {{ form_start(m.getBookingForm) }}
-                    <div class="my-custom-class-for-errors">
-                        {{ form_errors(m.getBookingForm) }}
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            {{ form_row(m.getBookingForm.name) }}
-                        </div>
-                        <div class="col" id="some-custom-id">
-                            {{ form_row(m.getBookingForm.phone) }}
-                        </div>
-                        {{ form_row(m.getBookingForm.movieShowId) }}
-                    </div>
-                    {{ form_end(m.getBookingForm) }}
+                    <a href="{{ path('booking', {movieShowId: m.getId}) }}">Забронировать</a>
                 </div>
             </div>
         {% endfor %}
