@@ -11,7 +11,6 @@ use App\Domain\Booking\Entity\ValueObject\Hall;
 use App\Domain\Booking\Entity\ValueObject\Schedule;
 use Doctrine\Common\Collections\Collection;
 use DomainException;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,8 +32,6 @@ class MovieShow
 
     #[ORM\OneToMany(targetEntity: Ticket::class, mappedBy: 'movieShow', cascade: ['persist'])]
     private Collection $ticketsCollection;
-
-    private FormView $bookingForm;
 
     public function __construct(
         Uuid $id,
@@ -95,16 +92,6 @@ class MovieShow
     private function getTicketsCollection(): Collection
     {
         return $this->ticketsCollection;
-    }
-
-    public function getBookingForm(): FormView
-    {
-        return $this->bookingForm;
-    }
-
-    public function setBookingForm(FormView $bookingForm): void
-    {
-        $this->bookingForm = $bookingForm;
     }
 
     public function getId(): Uuid
