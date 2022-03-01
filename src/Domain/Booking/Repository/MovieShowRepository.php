@@ -31,7 +31,7 @@ class MovieShowRepository extends ServiceEntityRepository
         return new MovieShowCollection($movieShow);
     }
 
-    public function findByUuid(Uuid $id): MovieShow
+    public function findById(Uuid $id): MovieShow
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $queryBuilder

@@ -36,7 +36,7 @@ class MovieShowController extends AbstractController
         Request $request,
         MessageBusInterface $bus
     ): Response {
-        $movieShow = $this->movieShowRepository->findByUuid(Uuid::fromString($movieShowId));
+        $movieShow = $this->movieShowRepository->findById(Uuid::fromString($movieShowId));
         $bookingForm = $this->createBookingForm($movieShow->getId());
 
         $bookingForm->handleRequest($request);
