@@ -16,16 +16,16 @@ class BookingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add("name", TextType::class)
-            ->add("phone", TelType::class)
-            ->add("movieShowId", HiddenType::class)
-            ->add("save", SubmitType::class, ["label" => "Забронировать"]);
+            ->add('name', TextType::class)
+            ->add('phone', TelType::class)
+            ->add('movieShowId', HiddenType::class)
+            ->add('save', SubmitType::class, ['label' => 'Забронировать']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            "data_class" => BookingCommand::class
+            'data_class' => BookingCommand::class
         ]);
     }
 }
