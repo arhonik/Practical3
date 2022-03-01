@@ -41,6 +41,7 @@ class MovieShowRepository extends ServiceEntityRepository
             ->setParameter(1, $id->toBinary());
 
         $queryMovieShow = $queryBuilder->getQuery();
+
         return $queryMovieShow->getSingleResult();
     }
 
