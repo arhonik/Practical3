@@ -27,7 +27,7 @@ class MovieShowController extends AbstractController
     {
         $allMovieShow = $this->movieShowRepository->findAll();
 
-        return $this->render("movieshow.html.twig", ["allMovieShow" => $allMovieShow]);
+        return $this->render('movieshow.html.twig', ['allMovieShow' => $allMovieShow]);
     }
 
     #[Route(path: '/booking/{movieShowId}', name: 'booking')]
@@ -42,12 +42,12 @@ class MovieShowController extends AbstractController
         $bookingForm->handleRequest($request);
         if ($bookingForm->isSubmitted() && $bookingForm->isValid()) {
             $bus->dispatch($bookingForm->getData());
-            $this->addFlash("notice","Your request has been accepted. The data is being processed.");
+            $this->addFlash('notice','Your request has been accepted. The data is being processed.');
 
-            return $this->redirectToRoute("movie-shows");
+            return $this->redirectToRoute('movie-shows');
         }
 
-        return $this->render("booking.html.twig", ["movieShow" => $movieShow, "form" => $bookingForm->createView()]);
+        return $this->render('booking.html.twig', ['movieShow' => $movieShow, 'form' => $bookingForm->createView()]);
     }
 
     private function createBookingForm(Uuid $id): FormInterface
