@@ -23,8 +23,8 @@ class MovieShowRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $queryBuilder
-            ->select("ms")
-            ->from("App\Domain\Booking\Entity\MovieShow", "ms");
+            ->select('ms')
+            ->from('App\Domain\Booking\Entity\MovieShow', 'ms');
         $queryMovieShow = $queryBuilder->getQuery();
         $movieShow = $queryMovieShow->getResult();
 
@@ -35,9 +35,9 @@ class MovieShowRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $queryBuilder
-            ->select("ms")
-            ->from("App\Domain\Booking\Entity\MovieShow", "ms")
-            ->where("ms.id = ?1")
+            ->select('ms')
+            ->from('App\Domain\Booking\Entity\MovieShow', 'ms')
+            ->where('ms.id = ?1')
             ->setParameter(1, $id->toBinary());
 
         $queryMovieShow = $queryBuilder->getQuery();
