@@ -16,6 +16,7 @@ use Symfony\Component\Uid\Uuid;
 class MovieShowController extends AbstractController
 {
     private MovieShowRepository $movieShowRepository;
+
     public function __construct(MovieShowRepository $movieShowRepository)
     {
         $this->movieShowRepository = $movieShowRepository;
@@ -25,6 +26,7 @@ class MovieShowController extends AbstractController
     public function movieShow(): Response
     {
         $allMovieShow = $this->movieShowRepository->findAll();
+
         return $this->render("movieshow.html.twig", ["allMovieShow" => $allMovieShow]);
     }
 
