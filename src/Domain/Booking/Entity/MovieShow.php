@@ -72,6 +72,7 @@ class MovieShow
     private static function checkIfFreePlaces(Collection $ticketsCollection, int $numberOfPlaces): bool
     {
         $freePlaces = $numberOfPlaces - $ticketsCollection->count();
+
         return $freePlaces > 0;
     }
 
