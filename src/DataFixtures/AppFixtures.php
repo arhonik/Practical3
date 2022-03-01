@@ -25,19 +25,19 @@ class AppFixtures extends Fixture
         $this->movieShowRepository->save(new MovieShow(
             Uuid::v4(),
             new Movie(
-                "Venom 2",
-                \DateInterval::createFromDateString("1 hour 25 minutes")
+                'Venom 2',
+                \DateInterval::createFromDateString('1 hour 25 minutes')
             ),
             new Schedule(
                 \DateTimeImmutable::createFromFormat(
-                    "Y-m-d H:i",
-                    "2022-10-11 19:45",
-                    new \DateTimeZone("Europe/Moscow")
+                    'Y-m-d H:i',
+                    '2022-10-11 19:45',
+                    new \DateTimeZone('Europe/Moscow')
                 ),
                 \DateTimeImmutable::createFromFormat(
-                    "Y-m-d H:i",
-                    "2022-10-11 21:10",
-                    new \DateTimeZone("Europe/Moscow")
+                    'Y-m-d H:i',
+                    '2022-10-11 21:10',
+                    new \DateTimeZone('Europe/Moscow')
                 ),
             ),
             new Hall(
@@ -47,19 +47,19 @@ class AppFixtures extends Fixture
         $this->movieShowRepository->save(new MovieShow(
             Uuid::v4(),
             new Movie(
-                "Venom 2",
-                \DateInterval::createFromDateString("1 hour 25 minutes")
+                'Venom 2',
+                \DateInterval::createFromDateString('1 hour 25 minutes')
             ),
             new Schedule(
                 \DateTimeImmutable::createFromFormat(
-                    "Y-m-d H:i",
-                    "2022-10-11 21:45",
-                    new \DateTimeZone("Europe/Moscow")
+                    'Y-m-d H:i',
+                    '2022-10-11 21:45',
+                    new \DateTimeZone('Europe/Moscow')
                 ),
                 \DateTimeImmutable::createFromFormat(
-                    "Y-m-d H:i",
-                    "2022-10-11 23:10",
-                    new \DateTimeZone("Europe/Moscow")
+                    'Y-m-d H:i',
+                    '2022-10-11 23:10',
+                    new \DateTimeZone('Europe/Moscow')
                 ),
             ),
             new Hall(
@@ -69,19 +69,19 @@ class AppFixtures extends Fixture
         $this->movieShowRepository->save(new MovieShow(
             Uuid::v4(),
             new Movie(
-                "Venom 2",
-                \DateInterval::createFromDateString("1 hour 25 minutes")
+                'Venom 2',
+                \DateInterval::createFromDateString('1 hour 25 minutes')
             ),
             new Schedule(
                 \DateTimeImmutable::createFromFormat(
-                    "Y-m-d H:i",
-                    "2022-10-11 23:45",
-                    new \DateTimeZone("Europe/Moscow")
+                    'Y-m-d H:i',
+                    '2022-10-11 23:45',
+                    new \DateTimeZone('Europe/Moscow')
                 ),
                 \DateTimeImmutable::createFromFormat(
-                    "Y-m-d H:i",
-                    "2022-10-12 01:10",
-                    new \DateTimeZone("Europe/Moscow")
+                    'Y-m-d H:i',
+                    '2022-10-12 01:10',
+                    new \DateTimeZone('Europe/Moscow')
                 ),
             ),
             new Hall(
