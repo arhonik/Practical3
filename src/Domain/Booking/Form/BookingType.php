@@ -2,7 +2,7 @@
 
 namespace App\Domain\Booking\Form;
 
-use App\Domain\Booking\Command\BookingCommand;
+use App\Domain\Booking\Command\BookTicketCommand;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -25,7 +25,7 @@ class BookingType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => BookingCommand::class
+            'data_class' => BookTicketCommand::class
         ]);
     }
 }

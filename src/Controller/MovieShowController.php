@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Domain\Booking\Command\BookingCommand;
+use App\Domain\Booking\Command\BookTicketCommand;
 use App\Domain\Booking\Form\BookingType;
 use App\Domain\Booking\Repository\MovieShowRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,7 +52,7 @@ class MovieShowController extends AbstractController
 
     private function createBookingForm(Uuid $id): FormInterface
     {
-        $bookingCommand = new BookingCommand();
+        $bookingCommand = new BookTicketCommand();
         $bookingCommand->movieShowId = $id;
         
         return $this->createForm(BookingType::class, $bookingCommand);

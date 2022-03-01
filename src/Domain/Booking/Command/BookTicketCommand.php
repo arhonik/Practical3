@@ -4,7 +4,7 @@ namespace App\Domain\Booking\Command;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class BookingCommand
+class BookTicketCommand
 {
     #[Assert\Uuid]
     #[Assert\NotBlank]

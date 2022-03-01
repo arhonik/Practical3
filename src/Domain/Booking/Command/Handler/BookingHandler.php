@@ -2,7 +2,7 @@
 
 namespace App\Domain\Booking\Command\Handler;
 
-use App\Domain\Booking\Command\BookingCommand;
+use App\Domain\Booking\Command\BookTicketCommand;
 use App\Domain\Booking\Entity\TransferObject\BookingDto;
 use App\Domain\Booking\Repository\MovieShowRepository;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
@@ -17,7 +17,7 @@ class BookingHandler implements MessageHandlerInterface
         $this->movieShowRepository = $movieShowRepository;
     }
 
-    public function __invoke(BookingCommand $bookingCommand): void
+    public function __invoke(BookTicketCommand $bookingCommand): void
     {
         $movieShow = $this->movieShowRepository->findById(Uuid::fromString($bookingCommand->movieShowId));
 
