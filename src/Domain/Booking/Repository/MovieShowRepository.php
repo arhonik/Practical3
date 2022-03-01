@@ -37,8 +37,8 @@ class MovieShowRepository extends ServiceEntityRepository
         $queryBuilder
             ->select('ms')
             ->from(MovieShow::class, 'ms')
-            ->where('ms.id = ?1')
-            ->setParameter(1, $id->toBinary());
+            ->where('ms.id = :id')
+            ->setParameter('id', $id->toBinary());
 
         $queryMovieShow = $queryBuilder->getQuery();
 
