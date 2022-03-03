@@ -11,7 +11,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Uid\Uuid;
 
-class AppFixtures extends Fixture
+class MovieShowFixtures extends Fixture
 {
     private MovieShowRepository $movieShowRepository;
 
