@@ -53,7 +53,7 @@ class MovieShowCollectionTest extends TestCase
         $movieShowCollection->add($ticket);
     }
 
-    public function testCorectAddMovieShow(): void
+    public function testCorrectAddMovieShow(): void
     {
         $movieShowCollection = new MovieShowCollection();
         $movieShowCollection->add($this->movieShow);
