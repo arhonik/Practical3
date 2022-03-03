@@ -2,14 +2,10 @@
 
 namespace App\Tests\Collection;
 
-use App\Domain\Booking\Collection\MovieShowCollection;
 use App\Domain\Booking\Collection\TicketsCollection;
 use App\Domain\Booking\Entity\MovieShow;
 use App\Domain\Booking\Entity\Ticket;
 use App\Domain\Booking\Entity\ValueObject\Customer;
-use App\Domain\Booking\Entity\ValueObject\Hall;
-use App\Domain\Booking\Entity\ValueObject\Movie;
-use App\Domain\Booking\Entity\ValueObject\Schedule;
 use DomainException;
 use Symfony\Component\Uid\Uuid;
 
