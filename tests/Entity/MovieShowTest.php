@@ -43,7 +43,7 @@ class MovieShowTest extends \Monolog\Test\TestCase
     {
         $bookingDto = new BookingDto(
             'Alex',
-            '+7902186974'
+            '+79021869474'
         );
 
         $numberOfAvailablePlacesBeforeBooking = $this->movieShow->getNumberOfAvailablePlacesForBooking();
@@ -51,5 +51,22 @@ class MovieShowTest extends \Monolog\Test\TestCase
         $numberOfAvailablePlacesAfterBooking = $this->movieShow->getNumberOfAvailablePlacesForBooking();
 
         $this->assertEquals($numberOfAvailablePlacesBeforeBooking - 1, $numberOfAvailablePlacesAfterBooking);
+    }
+
+    public function testMovieShowInfo(): void
+    {
+        $movieShowInfo = $this->movieShow->getMovieShowInfo();
+        $this->assertNotEmpty($movieShowInfo);
+        $this->assertIsString($movieShowInfo->getMovieTitle());
+        $this->assertIsObject($movieShowInfo->getMovieDuration());
+        $this->assertIsObject($movieShowInfo->getScheduleStartAt());
+        $this->assertIsObject($movieShowInfo->getScheduleEndAt());
+        $this->assertIsInt($movieShowInfo->getFreePlace());
+    }
+
+    public function testNumberOfAvailablePlacesForBooking(): void
+    {
+        $numberOfPlaces = $this->movieShow->getNumberOfAvailablePlacesForBooking();
+        $this->assertIsInt($numberOfPlaces);
     }
 }
