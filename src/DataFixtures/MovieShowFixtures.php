@@ -44,49 +44,5 @@ class MovieShowFixtures extends Fixture
                 100
             )
         ));
-        $this->movieShowRepository->save(new MovieShow(
-            Uuid::v4(),
-            new Movie(
-                'Venom 2',
-                \DateInterval::createFromDateString('1 hour 25 minutes')
-            ),
-            new Schedule(
-                \DateTimeImmutable::createFromFormat(
-                    'Y-m-d H:i',
-                    '2022-10-11 21:45',
-                    new \DateTimeZone('Europe/Moscow')
-                ),
-                \DateTimeImmutable::createFromFormat(
-                    'Y-m-d H:i',
-                    '2022-10-11 23:10',
-                    new \DateTimeZone('Europe/Moscow')
-                ),
-            ),
-            new Hall(
-                100
-            )
-        ));
-        $this->movieShowRepository->save(new MovieShow(
-            Uuid::v4(),
-            new Movie(
-                'Venom 2',
-                \DateInterval::createFromDateString('1 hour 25 minutes')
-            ),
-            new Schedule(
-                \DateTimeImmutable::createFromFormat(
-                    'Y-m-d H:i',
-                    '2022-10-11 23:45',
-                    new \DateTimeZone('Europe/Moscow')
-                ),
-                \DateTimeImmutable::createFromFormat(
-                    'Y-m-d H:i',
-                    '2022-10-12 01:10',
-                    new \DateTimeZone('Europe/Moscow')
-                ),
-            ),
-            new Hall(
-                100
-            )
-        ));
     }
 }
