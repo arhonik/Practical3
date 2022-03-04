@@ -38,6 +38,7 @@ class TicketsCollectionTest extends \Monolog\Test\TestCase
         $ticketsCollection = new TicketsCollection();
 
         $movieShow = $this->createMock(MovieShow::class);
+
         $this->expectException(DomainException::class);
         $ticketsCollection->add($movieShow);
     }
@@ -45,6 +46,7 @@ class TicketsCollectionTest extends \Monolog\Test\TestCase
     public function testCorrectAddTicket(): void
     {
         $ticketsCollection = new TicketsCollection();
+
         $ticketsCollection->add($this->ticket);
         $this->assertCount(1, $ticketsCollection);
     }
