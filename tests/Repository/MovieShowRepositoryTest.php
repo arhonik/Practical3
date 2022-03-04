@@ -72,7 +72,6 @@ class MovieShowRepositoryTest extends WebTestCase
         $movieShow = $movieShowCollection->get(0);
         $movieShowId = $movieShow->getId();
 
-
         return $this->movieShowRepository->findById($movieShowId);
     }
 
