@@ -49,6 +49,7 @@ class MovieShowCollectionTest extends TestCase
         $movieShowCollection = new MovieShowCollection();
 
         $ticket = $this->createMock(Ticket::class);
+
         $this->expectException(DomainException::class);
         $movieShowCollection->add($ticket);
     }
@@ -56,6 +57,7 @@ class MovieShowCollectionTest extends TestCase
     public function testCorrectAddMovieShow(): void
     {
         $movieShowCollection = new MovieShowCollection();
+
         $movieShowCollection->add($this->movieShow);
         $this->assertCount(1, $movieShowCollection);
     }
