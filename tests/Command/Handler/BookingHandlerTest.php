@@ -28,18 +28,18 @@ class BookingHandlerTest extends WebTestCase
         $movieShow = $this->getFirstMovieShow();
         $numberOfFreePlaces = $movieShow->getNumberOfAvailablePlacesForBooking();
         $command = $this->getCommand($movieShow->getId());
+
         $this->bus->dispatch($command);
-        $movieShowExpect = $this->getFirstMovieShow();
 
         self::assertNotEquals(
             $numberOfFreePlaces,
-            $movieShowExpect->getNumberOfAvailablePlacesForBooking()
+            $movieShow->getNumberOfAvailablePlacesForBooking()
         );
     }
 
     private function getFirstMovieShow(): MovieShow
     {
-        $movieShowCollection = $this->movieShowRepository->findAll();;
+        $movieShowCollection = $this->movieShowRepository->findAll();
 
         $movieShow = $movieShowCollection->get(0);
         $movieShowId = $movieShow->getId();
