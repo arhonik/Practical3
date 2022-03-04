@@ -29,9 +29,12 @@ class TicketsCollectionTest extends TestCase
 
     public function testCorrectAddTicket(): void
     {
-        $this->ticketsCollection->add($this->getTicket());
+        $ticket = $this->getTicket();
+
+        $this->ticketsCollection->add($ticket);
 
         $this->assertCount(1, $this->ticketsCollection);
+        $this->assertEquals($ticket, $this->ticketsCollection->first());
     }
 
     private function getTicket(): Ticket
