@@ -7,7 +7,6 @@ use App\Domain\Booking\Entity\MovieShow;
 use App\Domain\Booking\Entity\TransferObject\BookingDto;
 use App\Domain\Booking\Repository\MovieShowRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\Uid\Uuid;
 
 class MovieShowRepositoryTest extends WebTestCase
 {
@@ -50,13 +49,13 @@ class MovieShowRepositoryTest extends WebTestCase
             'Alex',
             '+79021869474'
         );
+
         $movieShow->bookPlace($bookingDto);
         $this->movieShowRepository->save($movieShow);
 
-        $movieShowExpect = $this->getFirstMovieShow();;
         self::assertNotEquals(
             $numberOfFreePlaces,
-            $movieShowExpect->getNumberOfAvailablePlacesForBooking()
+            $movieShow->getNumberOfAvailablePlacesForBooking()
         );
     }
 
