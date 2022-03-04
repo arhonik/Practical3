@@ -6,12 +6,16 @@ use App\Domain\Booking\Collection\TicketsCollection;
 use App\Domain\Booking\Entity\MovieShow;
 use App\Domain\Booking\Entity\Ticket;
 use App\Domain\Booking\Entity\ValueObject\Customer;
+use DateTimeImmutable;
+use DateTimeZone;
 use DomainException;
+use Monolog\Test\TestCase;
 use Symfony\Component\Uid\Uuid;
 
-class TicketsCollectionTest extends \Monolog\Test\TestCase
+class TicketsCollectionTest extends TestCase
 {
     protected Ticket $ticket;
+    protected TicketsCollection $ticketsCollection;
 
     protected function setUp(): void
     {
@@ -25,29 +29,28 @@ class TicketsCollectionTest extends \Monolog\Test\TestCase
                 '+79021869474'
             ),
             'Venom 2',
-            \DateTimeImmutable::createFromFormat(
+            DateTimeImmutable::createFromFormat(
                 'Y-m-d H:i',
                 '2022-10-11 19:45',
-                new \DateTimeZone('Europe/Moscow')
+                new DateTimeZone('Europe/Moscow')
             )
         );
+        $this->ticketsCollection = new TicketsCollection();
     }
 
     public function testExceptionAddTicket(): void
     {
-        $ticketsCollection = new TicketsCollection();
-
         $movieShow = $this->createMock(MovieShow::class);
 
         $this->expectException(DomainException::class);
-        $ticketsCollection->add($movieShow);
+
+        $this->ticketsCollection->add($movieShow);
     }
 
     public function testCorrectAddTicket(): void
     {
-        $ticketsCollection = new TicketsCollection();
+        $this->ticketsCollection->add($this->ticket);
 
-        $ticketsCollection->add($this->ticket);
-        $this->assertCount(1, $ticketsCollection);
+        $this->assertCount(1, $this->ticketsCollection);
     }
 }
