@@ -17,8 +17,8 @@ use Symfony\Component\Uid\Uuid;
 
 class MovieShowCollectionTest extends TestCase
 {
-    protected MovieShow $movieShow;
-    protected MovieShowCollection $movieShowCollection;
+    private MovieShow $movieShow;
+    private MovieShowCollection $movieShowCollection;
 
     protected function setUp(): void
     {

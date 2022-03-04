@@ -14,8 +14,8 @@ use Symfony\Component\Uid\Uuid;
 
 class TicketsCollectionTest extends TestCase
 {
-    protected Ticket $ticket;
-    protected TicketsCollection $ticketsCollection;
+    private Ticket $ticket;
+    private TicketsCollection $ticketsCollection;
 
     protected function setUp(): void
     {

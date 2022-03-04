@@ -9,8 +9,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class BookTicketCommandTest extends TestCase
 {
-    protected BookTicketCommand $command;
-    protected ValidatorInterface $validator;
+    private BookTicketCommand $command;
+    private ValidatorInterface $validator;
 
     protected function setUp(): void
     {

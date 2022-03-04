@@ -11,8 +11,8 @@ use Symfony\Component\Uid\Uuid;
 
 class BookingHandlerTest extends WebTestCase
 {
-    protected ?MessageBusInterface $bus;
-    protected ?MovieShowRepository $movieShowRepository;
+    private ?MessageBusInterface $bus;
+    private ?MovieShowRepository $movieShowRepository;
 
     protected function setUp(): void
     {

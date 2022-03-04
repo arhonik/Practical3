@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class MovieShowRepositoryTest extends WebTestCase
 {
-    protected ?MovieShowRepository $movieShowRepository;
+    private ?MovieShowRepository $movieShowRepository;
 
     protected function setUp(): void
     {

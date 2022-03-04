@@ -16,8 +16,8 @@ use Symfony\Component\Uid\Uuid;
 
 class MovieShowTest extends TestCase
 {
-    protected MovieShow $movieShow;
-    protected BookingDto $bookingDto;
+    private MovieShow $movieShow;
+    private BookingDto $bookingDto;
 
     public function setUp(): void
     {

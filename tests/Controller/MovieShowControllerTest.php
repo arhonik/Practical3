@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class MovieShowControllerTest extends WebTestCase
 {
-    protected KernelBrowser $client;
+    private KernelBrowser $client;
 
     protected function setUp(): void
     {
