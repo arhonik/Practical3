@@ -49,15 +49,6 @@ class BookTicketCommandTest extends TestCase
 
     }
 
-    public function testCorrectValuePropertyPhone(): void
-    {
-        $this->command->phone = '+79021869474';
-
-        $errors = $this->validator->validate($this->command);
-
-        $this->assertCount(0, $errors);
-    }
-
     public function testEmptyValuePropertyName(): void
     {
         $this->command->name = '';
@@ -65,15 +56,6 @@ class BookTicketCommandTest extends TestCase
         $errors = $this->validator->validate($this->command);
 
         $this->assertCount(1, $errors);
-    }
-
-    public function testCorrectValuePropertyName(): void
-    {
-        $this->command->name = 'Alex';
-
-        $errors = $this->validator->validate($this->command);
-
-        $this->assertCount(0, $errors);
     }
 
     public function testEmptyValuePropertyMovieShowId(): void
@@ -92,14 +74,5 @@ class BookTicketCommandTest extends TestCase
         $errors = $this->validator->validate($this->command);
 
         $this->assertCount(1, $errors);
-    }
-
-    public function testCorrectValuePropertyMovieShowId(): void
-    {
-        $this->command->movieShowId = 'a46eb3ca-d913-426c-8af9-6340dfe49f14';
-
-        $errors = $this->validator->validate($this->command);
-
-        $this->assertCount(0, $errors);
     }
 }
