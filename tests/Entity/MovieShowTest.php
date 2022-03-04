@@ -7,6 +7,7 @@ use App\Domain\Booking\Entity\TransferObject\BookingDto;
 use App\Domain\Booking\Entity\ValueObject\Hall;
 use App\Domain\Booking\Entity\ValueObject\Movie;
 use App\Domain\Booking\Entity\ValueObject\Schedule;
+use DomainException;
 use Symfony\Component\Uid\Uuid;
 
 class MovieShowTest extends \Monolog\Test\TestCase
@@ -34,7 +35,7 @@ class MovieShowTest extends \Monolog\Test\TestCase
                 ),
             ),
             new Hall(
-                100
+                1
             )
         );
     }
@@ -51,6 +52,9 @@ class MovieShowTest extends \Monolog\Test\TestCase
         $numberOfAvailablePlacesAfterBooking = $this->movieShow->getNumberOfAvailablePlacesForBooking();
 
         $this->assertEquals($numberOfAvailablePlacesBeforeBooking - 1, $numberOfAvailablePlacesAfterBooking);
+
+        $this->expectException(DomainException::class);
+        $this->movieShow->bookPlace($bookingDto);
     }
 
     public function testMovieShowInfo(): void
