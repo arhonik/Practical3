@@ -41,7 +41,7 @@ class BookingHandlerTest extends WebTestCase
     {
         $movieShowCollection = $this->movieShowRepository->findAll();
 
-        $movieShow = $movieShowCollection->get(0);
+        $movieShow = $movieShowCollection->first();
         $movieShowId = $movieShow->getId();
 
         return $this->movieShowRepository->findById($movieShowId);
