@@ -8,7 +8,6 @@ use App\Domain\Booking\Entity\TransferObject\BookingDto;
 use App\Domain\Booking\Repository\MovieShowRepository;
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
-use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class MovieShowRepositoryTest extends WebTestCase
