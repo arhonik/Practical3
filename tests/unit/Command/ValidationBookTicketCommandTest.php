@@ -23,14 +23,14 @@ class ValidationBookTicketCommandTest extends TestCase
         $this->validator = Validation::createValidatorBuilder()->enableAnnotationMapping()->getValidator();
     }
 
-    public function testValidateProperty(): void
+    public function testPropertyValueValidationShouldSucceed(): void
     {
         $errors = $this->validator->validate($this->command);
 
         $this->assertCount(0, $errors);
     }
 
-    public function testEmptyValuePropertyPhone(): void
+    public function testValidationEmptyValuePhonePropertyShouldNotSucceed(): void
     {
         $this->command->phone = '';
 
@@ -39,7 +39,7 @@ class ValidationBookTicketCommandTest extends TestCase
         $this->assertCount(1, $errors);
     }
 
-    public function testNotCorrectValuePropertyPhone(): void
+    public function testValidationPhonePropertyWithInvalidValueShouldNotSucceed(): void
     {
         $this->command->phone = '+7 902 186 94 74';
 
@@ -49,7 +49,7 @@ class ValidationBookTicketCommandTest extends TestCase
 
     }
 
-    public function testEmptyValuePropertyName(): void
+    public function testValidationEmptyValueNamePropertyShouldNotSucceed(): void
     {
         $this->command->name = '';
 
@@ -58,7 +58,7 @@ class ValidationBookTicketCommandTest extends TestCase
         $this->assertCount(1, $errors);
     }
 
-    public function testEmptyValuePropertyMovieShowId(): void
+    public function testValidationEmptyValueMovieShowIdPropertyShouldNotSucceed(): void
     {
         $this->command->movieShowId = '';
 
@@ -67,7 +67,7 @@ class ValidationBookTicketCommandTest extends TestCase
         $this->assertCount(1, $errors);
     }
 
-    public function testNotCorrectValuePropertyMovieShowId(): void
+    public function testValidationMovieShowIdPropertyWithInvalidValueShouldNotSucceed(): void
     {
         $this->command->movieShowId = 'a46eb3ca-d913-426c-8af9-6340d';
 
