@@ -18,7 +18,7 @@ class TicketsCollectionTest extends TestCase
         $this->ticketsCollection = new TicketsCollection();
     }
 
-    public function testExceptionAddTicket(): void
+    public function testSeeExceptionWhenTryToAddNotTicketObject(): void
     {
         $object = new stdClass();
 
@@ -27,7 +27,7 @@ class TicketsCollectionTest extends TestCase
         $this->ticketsCollection->add($object);
     }
 
-    public function testCorrectAddTicket(): void
+    public function testProperlyAddingTicketObjectToCollection(): void
     {
         $ticket = $this->createMock(Ticket::class);
 
