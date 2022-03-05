@@ -14,7 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class MovieShowRepositoryTest extends WebTestCase
 {
     private ?MovieShowRepository $movieShowRepository;
-    private ?AbstractDatabaseTool $databaseTool;
     private ?ReferenceRepository $referenceRepository;
 
     protected function setUp(): void
@@ -23,11 +22,13 @@ class MovieShowRepositoryTest extends WebTestCase
 
         $this->movieShowRepository = self::getContainer()->get(MovieShowRepository::class);
 
-        $this->databaseTool = self::getContainer()->get(DatabaseToolCollection::class)->get();
+        $databaseTool = self::getContainer()->get(DatabaseToolCollection::class)->get();
 
-        $this->referenceRepository = $this->databaseTool->loadFixtures(
+        $this->referenceRepository = $databaseTool->loadFixtures(
             [MovieShowFixtures::class]
         )->getReferenceRepository();
+
+        unset($databaseTool);
     }
 
     protected function tearDown(): void
@@ -35,7 +36,6 @@ class MovieShowRepositoryTest extends WebTestCase
         parent::tearDown();
 
         $this->movieShowRepository = null;
-        $this->databaseTool = null;
         $this->referenceRepository = null;
     }
 
