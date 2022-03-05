@@ -30,16 +30,11 @@ class MovieShowCollectionTest extends TestCase
 
     public function testCorrectAddMovieShow(): void
     {
-        $movieShow = $this->getMovieShow();
+        $movieShow = $this->createMock(MovieShow::class);
 
         $this->movieShowCollection->add($movieShow);
 
         $this->assertCount(1, $this->movieShowCollection);
         $this->assertEquals($movieShow, $this->movieShowCollection->first());
-    }
-
-    private function getMovieShow(): MovieShow
-    {
-        return $this->createMock(MovieShow::class);
     }
 }
