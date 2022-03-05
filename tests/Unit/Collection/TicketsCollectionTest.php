@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Collection;
+namespace App\Tests\Unit\Collection;
 
 use App\Domain\Booking\Collection\TicketsCollection;
 use App\Domain\Booking\Entity\Ticket;

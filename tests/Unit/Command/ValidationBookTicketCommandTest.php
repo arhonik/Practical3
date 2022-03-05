@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Command;
+namespace App\Tests\Unit\Command;
 
 use App\Domain\Booking\Command\BookTicketCommand;
 use Monolog\Test\TestCase;

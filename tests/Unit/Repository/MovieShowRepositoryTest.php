@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Repository;
+namespace App\Tests\Unit\Repository;
 
 use App\Domain\Booking\Collection\MovieShowCollection;
 use App\Domain\Booking\Entity\MovieShow;
