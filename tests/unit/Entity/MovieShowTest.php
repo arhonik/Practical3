@@ -59,15 +59,7 @@ class MovieShowTest extends TestCase
         );
     }
 
-    public function testBookingPlace(): void
-    {
-        $numberOfAvailablePlaces = $this->movieShow->getNumberOfAvailablePlacesForBooking();
-        $this->movieShow->bookPlace($this->bookingDto);
-
-        $this->assertNotEquals($numberOfAvailablePlaces, $this->movieShow->getNumberOfAvailablePlacesForBooking());
-    }
-
-    public function testExceptionBookingPlace(): void
+    public function testExceptionWhenAddedTicketInFullHall(): void
     {
         $this->movieShow->bookPlace($this->bookingDto);
 
