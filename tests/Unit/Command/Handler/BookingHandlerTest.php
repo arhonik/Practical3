@@ -23,7 +23,7 @@ class BookingHandlerTest extends WebTestCase
         $this->movieShowRepository = self::getContainer()->get(MovieShowRepository::class);
     }
 
-    public function testCorrectCommandExecution(): void
+    public function testCommandShouldExecutCorrectly(): void
     {
         $movieShow = $this->getFirstMovieShow();
         $numberOfFreePlaces = $movieShow->getNumberOfAvailablePlacesForBooking();
