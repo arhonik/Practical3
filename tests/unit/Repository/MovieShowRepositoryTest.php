@@ -26,24 +26,24 @@ class MovieShowRepositoryTest extends WebTestCase
         $this->movieShowRepository = null;
     }
 
-    public function testFindAll(): void
+    public function testShouldFindAllMovieShows(): void
     {
         $movieShowCollection = $this->getMovieShowCollection();
 
         $this->assertCount(1, $movieShowCollection);
     }
 
-    public function testFindById(): void
+    public function testShouldFindByIdMovieShow(): void
     {
         $movieShow = $this->getFirstMovieShow();
 
         $this->assertNotEmpty($movieShow);
     }
 
-    public function testSave(): void
+    public function testShouldSaveMovieShow(): void
     {
         $movieShow = $this->getFirstMovieShow();
-        $numberOfFreePlaces = $movieShow->getNumberOfAvailablePlacesForBooking();
+        $initialNumberOfFreePlaces = $movieShow->getNumberOfAvailablePlacesForBooking();
 
         $bookingDto = new BookingDto(
             'Alex',
@@ -54,7 +54,7 @@ class MovieShowRepositoryTest extends WebTestCase
         $this->movieShowRepository->save($movieShow);
 
         self::assertNotEquals(
-            $numberOfFreePlaces,
+            $initialNumberOfFreePlaces,
             $movieShow->getNumberOfAvailablePlacesForBooking()
         );
     }
