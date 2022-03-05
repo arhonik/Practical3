@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Domain\Booking\Entity\MovieShow;
+use App\Domain\Booking\Entity\TransferObject\BookingDto;
 use App\Domain\Booking\Entity\ValueObject\Hall;
 use App\Domain\Booking\Entity\ValueObject\Movie;
 use App\Domain\Booking\Entity\ValueObject\Schedule;
@@ -15,6 +16,8 @@ class MovieShowFixtures extends Fixture
 {
     private MovieShowRepository $movieShowRepository;
 
+    public const MOVIE_SHOW_REFERENCE = 'movie-show';
+
     public function __construct(MovieShowRepository $movieShowRepository)
     {
         $this->movieShowRepository = $movieShowRepository;
@@ -22,7 +25,7 @@ class MovieShowFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $this->movieShowRepository->save(new MovieShow(
+        $movieShow = new MovieShow(
             Uuid::v4(),
             new Movie(
                 'Venom 2',
@@ -43,6 +46,10 @@ class MovieShowFixtures extends Fixture
             new Hall(
                 100
             )
-        ));
+        );
+
+        $this->movieShowRepository->save($movieShow);
+
+        $this->addReference(self::MOVIE_SHOW_REFERENCE, $movieShow);
     }
 }
