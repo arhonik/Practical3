@@ -2,21 +2,32 @@
 
 namespace App\Tests\Functional\Repository;
 
+use App\DataFixtures\MovieShowFixtures;
 use App\Domain\Booking\Collection\MovieShowCollection;
-use App\Domain\Booking\Entity\MovieShow;
 use App\Domain\Booking\Entity\TransferObject\BookingDto;
 use App\Domain\Booking\Repository\MovieShowRepository;
+use Doctrine\Common\DataFixtures\ReferenceRepository;
+use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
+use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class MovieShowRepositoryTest extends WebTestCase
 {
     private ?MovieShowRepository $movieShowRepository;
+    private ?AbstractDatabaseTool $databaseTool;
+    private ?ReferenceRepository $referenceRepository;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->movieShowRepository = self::getContainer()->get(MovieShowRepository::class);
+
+        $this->databaseTool = self::getContainer()->get(DatabaseToolCollection::class)->get();
+
+        $this->referenceRepository = $this->databaseTool->loadFixtures(
+            [MovieShowFixtures::class]
+        )->getReferenceRepository();
     }
 
     protected function tearDown(): void
@@ -24,6 +35,8 @@ class MovieShowRepositoryTest extends WebTestCase
         parent::tearDown();
 
         $this->movieShowRepository = null;
+        $this->databaseTool = null;
+        $this->referenceRepository = null;
     }
 
     public function testShouldFindAllMovieShows(): void
@@ -35,14 +48,17 @@ class MovieShowRepositoryTest extends WebTestCase
 
     public function testShouldFindByIdMovieShow(): void
     {
-        $movieShow = $this->getFirstMovieShow();
+        $movieShow = $this->referenceRepository->getReference(MovieShowFixtures::MOVIE_SHOW_REFERENCE);
 
-        $this->assertNotEmpty($movieShow);
+        $movieShowExpect = $this->movieShowRepository->findById($movieShow->getId());
+
+        $this->assertEquals($movieShow->getId(), $movieShowExpect->getId());
     }
 
     public function testShouldSaveMovieShow(): void
     {
-        $movieShow = $this->getFirstMovieShow();
+        $movieShow = $this->referenceRepository->getReference(MovieShowFixtures::MOVIE_SHOW_REFERENCE);
+
         $initialNumberOfFreePlaces = $movieShow->getNumberOfAvailablePlacesForBooking();
 
         $bookingDto = new BookingDto(
@@ -51,6 +67,7 @@ class MovieShowRepositoryTest extends WebTestCase
         );
 
         $movieShow->bookPlace($bookingDto);
+
         $this->movieShowRepository->save($movieShow);
 
         self::assertNotEquals(
@@ -62,15 +79,5 @@ class MovieShowRepositoryTest extends WebTestCase
     private function getMovieShowCollection(): MovieShowCollection
     {
         return $this->movieShowRepository->findAll();
-    }
-
-    private function getFirstMovieShow(): MovieShow
-    {
-        $movieShowCollection = $this->getMovieShowCollection();
-
-        $movieShow = $movieShowCollection->get(0);
-        $movieShowId = $movieShow->getId();
-
-        return $this->movieShowRepository->findById($movieShowId);
     }
 }
