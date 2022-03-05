@@ -5,13 +5,13 @@ namespace App\DataFixtures;
 use App\Domain\Booking\Entity\MovieShow;
 use App\Domain\Booking\Entity\Ticket;
 use App\Domain\Booking\Entity\ValueObject\Customer;
-use App\Domain\Booking\Repository\MovieShowRepository;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Uid\Uuid;
 
-class TicketFixtures extends Fixture
+class TicketFixtures extends Fixture implements DependentFixtureInterface
 {
     private EntityManagerInterface $entityManager;
 
@@ -42,5 +42,10 @@ class TicketFixtures extends Fixture
         $this->entityManager->flush();
 
         $this->addReference(self::TICKET_REFERENCE, $ticket);
+    }
+
+    public function getDependencies(): array
+    {
+        return [MovieShowFixtures::class];
     }
 }
