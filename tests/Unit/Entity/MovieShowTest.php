@@ -59,7 +59,7 @@ class MovieShowTest extends TestCase
         );
     }
 
-    public function testExceptionWhenAddedTicketInFullHall(): void
+    public function testSeeExceptionWhenAddedTicketInFullHall(): void
     {
         $this->movieShow->bookPlace($this->bookingDto);
 
@@ -67,11 +67,11 @@ class MovieShowTest extends TestCase
         $this->movieShow->bookPlace($this->bookingDto);
     }
 
-    public function testValueMovieShowInfoMustMatchOriginal(): void
+    public function testValueMovieShowInfoShouldMatchOriginal(): void
     {
         $movieShowInfo = $this->movieShow->getMovieShowInfo();
 
-        $this->assertValueMovieShowInfoMustMatchOriginal($movieShowInfo);
+        $this->assertValueMovieShowInfoShouldMatchOriginal($movieShowInfo);
     }
 
     public function testUponSuccessfulBookingNumberOfAvailablePlacesShouldDecrease(): void
@@ -83,7 +83,7 @@ class MovieShowTest extends TestCase
         $this->assertEquals($initialNumberOfAvailablePlaces - 1, $this->movieShow->getNumberOfAvailablePlacesForBooking());
     }
 
-    private function assertValueMovieShowInfoMustMatchOriginal(MovieShowInfoDto $movieShowInfo): void
+    private function assertValueMovieShowInfoShouldMatchOriginal(MovieShowInfoDto $movieShowInfo): void
     {
         $this->assertEquals($movieShowInfo->getMovieTitle(), $this->movie->getTitle());
         $this->assertEquals($movieShowInfo->getMovieDuration(), $this->movie->getDuration());
