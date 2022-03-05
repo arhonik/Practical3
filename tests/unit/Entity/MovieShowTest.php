@@ -76,11 +76,11 @@ class MovieShowTest extends TestCase
 
     public function testNumberOfAvailablePlacesShouldDecrease(): void
     {
-        $numberOfAvailablePlaces = $this->movieShow->getNumberOfAvailablePlacesForBooking();
+        $initialNumberOfAvailablePlaces = $this->movieShow->getNumberOfAvailablePlacesForBooking();
 
         $this->movieShow->bookPlace($this->bookingDto);
 
-        $this->assertTrue($numberOfAvailablePlaces > $this->movieShow->getNumberOfAvailablePlacesForBooking());
+        $this->assertEquals($initialNumberOfAvailablePlaces - 1, $this->movieShow->getNumberOfAvailablePlacesForBooking());
     }
 
     private function assertValueMovieShowInfoMustMatchOriginal(MovieShowInfoDto $movieShowInfo): void
