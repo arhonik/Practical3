@@ -19,7 +19,7 @@ class MovieShowCollectionTest extends TestCase
         $this->movieShowCollection = new MovieShowCollection();
     }
 
-    public function testExceptionAddMovieShow(): void
+    public function testSeeExceptionWhenTryToAddNotMovieShowObject(): void
     {
         $object = new stdClass();
 
@@ -28,7 +28,7 @@ class MovieShowCollectionTest extends TestCase
         $this->movieShowCollection->add($object);
     }
 
-    public function testCorrectAddMovieShow(): void
+    public function testProperlyAddingMovieShowObjectToCollection(): void
     {
         $movieShow = $this->createMock(MovieShow::class);
 
