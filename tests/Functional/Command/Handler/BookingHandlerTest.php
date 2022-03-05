@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\Command\Handler;
+namespace App\Tests\Functional\Command\Handler;
 
 use App\Domain\Booking\Command\BookTicketCommand;
 use App\Domain\Booking\Entity\MovieShow;
