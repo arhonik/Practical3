@@ -16,7 +16,7 @@ class MovieShowControllerTest extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function testBookingAlgorithm(): void
+    public function testBookingUseCase(): void
     {
         $this->client->request('GET', '/movie-shows');
         $this->assertPageTitleContains('Киносеансы');
