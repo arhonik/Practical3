@@ -19,8 +19,10 @@ class MovieShowTest extends TestCase
     private MovieShow $movieShow;
     private BookingDto $bookingDto;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
+        parent::setUp();
+
         $this->movieShow = new MovieShow(
             Uuid::v4(),
             new Movie(
