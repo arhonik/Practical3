@@ -2,9 +2,10 @@
 
 namespace App\Tests\Functional\Command\Handler;
 
+use App\DataFixtures\MovieShowFixtures;
 use App\Domain\Booking\Command\BookTicketCommand;
-use App\Domain\Booking\Entity\MovieShow;
-use App\Domain\Booking\Repository\MovieShowRepository;
+use Doctrine\Common\DataFixtures\ReferenceRepository;
+use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Uid\Uuid;
@@ -12,7 +13,7 @@ use Symfony\Component\Uid\Uuid;
 class BookingHandlerTest extends WebTestCase
 {
     private ?MessageBusInterface $bus;
-    private ?MovieShowRepository $movieShowRepository;
+    private ?ReferenceRepository $referenceRepository;
 
     protected function setUp(): void
     {
@@ -20,31 +21,37 @@ class BookingHandlerTest extends WebTestCase
 
         $this->bus = self::getContainer()->get(MessageBusInterface::class);
 
-        $this->movieShowRepository = self::getContainer()->get(MovieShowRepository::class);
+        $datasetTool = self::getContainer()->get(DatabaseToolCollection::class)->get();
+
+        $this->referenceRepository = $datasetTool->loadFixtures(
+            [MovieShowFixtures::class]
+        )->getReferenceRepository();
+
+        unset($datasetTool);
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        $this->bus = null;
+        $this->referenceRepository = null;
     }
 
     public function testCommandShouldExecuteCorrectly(): void
     {
-        $movieShow = $this->getFirstMovieShow();
+        $movieShow = $this->referenceRepository->getReference(MovieShowFixtures::MOVIE_SHOW_REFERENCE);
+
         $numberOfFreePlaces = $movieShow->getNumberOfAvailablePlacesForBooking();
+
         $command = $this->getCommand($movieShow->getId());
 
         $this->bus->dispatch($command);
 
-        self::assertNotEquals(
-            $numberOfFreePlaces,
+        self::assertEquals(
+            $numberOfFreePlaces - 1,
             $movieShow->getNumberOfAvailablePlacesForBooking()
         );
-    }
-
-    private function getFirstMovieShow(): MovieShow
-    {
-        $movieShowCollection = $this->movieShowRepository->findAll();
-
-        $movieShow = $movieShowCollection->first();
-        $movieShowId = $movieShow->getId();
-
-        return $this->movieShowRepository->findById($movieShowId);
     }
 
     private function getCommand(Uuid $movieShowId): BookTicketCommand
