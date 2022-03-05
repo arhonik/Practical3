@@ -7,7 +7,7 @@ use Monolog\Test\TestCase;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class BookTicketCommandTest extends TestCase
+class ValidationBookTicketCommandTest extends TestCase
 {
     private BookTicketCommand $command;
     private ValidatorInterface $validator;
